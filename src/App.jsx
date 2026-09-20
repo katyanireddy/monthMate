@@ -12,6 +12,7 @@ import QuickAdd from './components/QuickAdd.jsx'
 import UpcomingTasks from './components/UpcomingTasks.jsx'
 import MotivationalBanner from './components/MotivationalBanner.jsx'
 import HabitsView from './components/Habits/HabitsView.jsx'
+import NotesView from './components/NotesView.jsx'
 import ProfileModal from './components/ProfileModal.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import { getCategory } from './data/categories.js'
@@ -20,6 +21,7 @@ import { useTasks } from './context/TaskContext.jsx'
 import { useAuth } from './context/AuthContext.jsx'
 import { dateToKey, keyToDate, formatShortDate } from './utils/dateUtils.js'
 import { loadTheme, saveTheme } from './utils/storage.js'
+
 
 const TODAY = new Date()
 const TODAY_KEY = dateToKey(TODAY)
@@ -194,7 +196,7 @@ export default function App() {
         ) : activeNav === 'habits' ? (
           <HabitsView />
         ) : activeNav === 'notes' ? (
-          <ComingSoon label="Notes" />
+          <NotesView />
         ) : (
           <>
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1fr_320px]">

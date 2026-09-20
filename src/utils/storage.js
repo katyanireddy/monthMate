@@ -1,6 +1,7 @@
 const TASKS_KEY = 'monthmate.tasks.v1'
 const THEME_KEY = 'monthmate.theme.v1'
 const HABITS_KEY = 'monthmate.habits.v1'
+const NOTES_KEY = 'monthmate.notes.v1'
 
 export function loadTasks(userId, fallback = []) {
   if (!userId) return []
@@ -143,3 +144,33 @@ export function saveLoginDays(days) {
   } catch {}
 }
 
+export function loadNotes(userId, fallback = []) {
+  if (!userId) return []
+
+  try {
+    const key = `${NOTES_KEY}.${userId}`
+    const raw = window.localStorage.getItem(key)
+
+    if (!raw) return fallback
+
+    const parsed = JSON.parse(raw)
+
+    if (!Array.isArray(parsed)) return fallback
+
+    return parsed
+  } catch (err) {
+    console.error('MonthMate: failed to read notes', err)
+    return fallback
+  }
+}
+
+export function saveNotes(userId, notes) {
+  if (!userId) return
+
+  try {
+    const key = `${NOTES_KEY}.${userId}`
+    window.localStorage.setItem(key, JSON.stringify(notes))
+  } catch (err) {
+    console.error('MonthMate: failed to save notes', err)
+  }
+}
