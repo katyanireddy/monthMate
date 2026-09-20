@@ -1,0 +1,125 @@
+const TASKS_KEY = 'monthmate.tasks.v1'
+const THEME_KEY = 'monthmate.theme.v1'
+const HABITS_KEY = 'monthmate.habits.v1'
+
+export function loadTasks(fallback) {
+  try {
+    const raw = window.localStorage.getItem(TASKS_KEY)
+    if (!raw) return fallback
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return fallback
+    return parsed
+  } catch (err) {
+    console.error('MonthMate: failed to read tasks from LocalStorage', err)
+    return fallback
+  }
+}
+
+export function saveTasks(tasks) {
+  try {
+    window.localStorage.setItem(TASKS_KEY, JSON.stringify(tasks))
+  } catch (err) {
+    console.error('MonthMate: failed to save tasks to LocalStorage', err)
+  }
+}
+
+export function loadTheme(fallback = 'light') {
+  try {
+    return window.localStorage.getItem(THEME_KEY) || fallback
+  } catch {
+    return fallback
+  }
+}
+
+export function saveTheme(theme) {
+  try {
+    window.localStorage.setItem(THEME_KEY, theme)
+  } catch (err) {
+    console.error('MonthMate: failed to save theme to LocalStorage', err)
+  }
+}
+
+export function loadHabits(fallback) {
+  try {
+    const raw = window.localStorage.getItem(HABITS_KEY)
+    if (!raw) return fallback
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return fallback
+    return parsed
+  } catch (err) {
+    console.error('MonthMate: failed to read habits from LocalStorage', err)
+    return fallback
+  }
+}
+
+export function saveHabits(habits) {
+  try {
+    window.localStorage.setItem(HABITS_KEY, JSON.stringify(habits))
+  } catch (err) {
+    console.error('MonthMate: failed to save habits to LocalStorage', err)
+  }
+}
+
+const USERS_KEY = 'monthmate.users.v1'
+const SESSION_KEY = 'monthmate.session.v1'
+
+export function loadUsers() {
+  try {
+    const raw = window.localStorage.getItem(USERS_KEY)
+    if (!raw) return []
+    return JSON.parse(raw) || []
+  } catch {
+    return []
+  }
+}
+
+export function saveUsers(users) {
+  try {
+    window.localStorage.setItem(USERS_KEY, JSON.stringify(users))
+  } catch (err) {
+    console.error('MonthMate: failed to save users', err)
+  }
+}
+
+export function loadSession() {
+  try {
+    const raw = window.localStorage.getItem(SESSION_KEY)
+    if (!raw) return null
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+export function saveSession(user) {
+  try {
+    window.localStorage.setItem(SESSION_KEY, JSON.stringify(user))
+  } catch (err) {
+    console.error('MonthMate: failed to save session', err)
+  }
+}
+
+export function deleteSession() {
+  try {
+    window.localStorage.removeItem(SESSION_KEY)
+  } catch (err) {
+    console.error('MonthMate: failed to delete session', err)
+  }
+}
+
+export function loadLoginDays() {
+  try {
+    const raw = window.localStorage.getItem('monthmate.logindays.v1')
+    if (!raw) return []
+    return JSON.parse(raw) || []
+  } catch {
+    return []
+  }
+}
+
+export function saveLoginDays(days) {
+  try {
+    window.localStorage.setItem('monthmate.logindays.v1', JSON.stringify(days))
+  } catch {}
+}
+

@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: 251 248 252;
+    --color-primary: 237 79 134;
+    --color-primary-soft: 252 228 239;
+    --color-primary-dark: 214 58 112;
+    --color-lavender: 242 237 250;
+    --color-plum: 58 37 64;
+    --color-muted: 139 124 147;
+    --color-card: 255 255 255;
+  }
+  .dark {
+    --color-bg: 24 20 28;
+    --color-primary: 237 79 134;
+    --color-primary-soft: 68 28 44;
+    --color-primary-dark: 255 120 160;
+    --color-lavender: 45 35 55;
+    --color-plum: 242 237 250;
+    --color-muted: 168 152 176;
+    --color-card: 38 31 46;
+  }
+}
+
+html,
+body {
+  background-color: rgb(var(--color-bg));
+  color: rgb(var(--color-plum));
+  overscroll-behavior-x: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-primary-soft));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* focus visibility for accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
