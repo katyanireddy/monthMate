@@ -49,24 +49,34 @@ export function saveTheme(theme) {
   }
 }
 
-export function loadHabits(fallback) {
+export function loadHabits(userId, fallback = []) {
+  if (!userId) return []
+
   try {
-    const raw = window.localStorage.getItem(HABITS_KEY)
+    const key = `${HABITS_KEY}.${userId}`
+    const raw = window.localStorage.getItem(key)
+
     if (!raw) return fallback
+
     const parsed = JSON.parse(raw)
+
     if (!Array.isArray(parsed)) return fallback
+
     return parsed
   } catch (err) {
-    console.error('MonthMate: failed to read habits from LocalStorage', err)
+    console.error('MonthMate: failed to read habits', err)
     return fallback
   }
 }
 
-export function saveHabits(habits) {
+export function saveHabits(userId, habits) {
+  if (!userId) return
+
   try {
-    window.localStorage.setItem(HABITS_KEY, JSON.stringify(habits))
+    const key = `${HABITS_KEY}.${userId}`
+    window.localStorage.setItem(key, JSON.stringify(habits))
   } catch (err) {
-    console.error('MonthMate: failed to save habits to LocalStorage', err)
+    console.error('MonthMate: failed to save habits', err)
   }
 }
 
