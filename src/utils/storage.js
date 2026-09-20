@@ -2,24 +2,34 @@ const TASKS_KEY = 'monthmate.tasks.v1'
 const THEME_KEY = 'monthmate.theme.v1'
 const HABITS_KEY = 'monthmate.habits.v1'
 
-export function loadTasks(fallback) {
+export function loadTasks(userId, fallback = []) {
+  if (!userId) return []
+
   try {
-    const raw = window.localStorage.getItem(TASKS_KEY)
+    const key = `${TASKS_KEY}.${userId}`
+    const raw = window.localStorage.getItem(key)
+
     if (!raw) return fallback
+
     const parsed = JSON.parse(raw)
+
     if (!Array.isArray(parsed)) return fallback
+
     return parsed
   } catch (err) {
-    console.error('MonthMate: failed to read tasks from LocalStorage', err)
+    console.error('MonthMate: failed to read tasks', err)
     return fallback
   }
 }
 
-export function saveTasks(tasks) {
+export function saveTasks(userId, tasks) {
+  if (!userId) return
+
   try {
-    window.localStorage.setItem(TASKS_KEY, JSON.stringify(tasks))
+    const key = `${TASKS_KEY}.${userId}`
+    window.localStorage.setItem(key, JSON.stringify(tasks))
   } catch (err) {
-    console.error('MonthMate: failed to save tasks to LocalStorage', err)
+    console.error('MonthMate: failed to save tasks', err)
   }
 }
 
